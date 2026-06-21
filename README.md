@@ -1,228 +1,280 @@
-*This project has been created as part of the 42 curriculum by yel-azim, blidriss.*
+# 🏛️ A-Maze-ing
 
-# A-Maze-ing
-
-## Description
-
-Mazes have always been cool. puzzle books, video games… same vibe: you enter, you get lost, you learn, you escape. **A-Maze-ing** is about doing exactly that but with codes
-
-The goal of this project is to build a **fully maze generator** in Python. The program reads a configuration file ```(config.txt)```, generates a random maze, including a visible **“42” pattern** in the middle of it, exports everything using hexadecimal.
+### *Turning randomness into structure, one wall at a time.*
 
 ---
 
-## Project Structure
+<p align="center">
 
+<!-- Put your screenshot here -->
+
+📸 **Maze Preview**
+
+</p>
+
+---
+
+## What is this?
+
+A maze starts as chaos.
+
+Walls everywhere.
+No direction.
+No path.
+
+Then an algorithm begins carving passages through the grid, cell by cell, until a valid maze emerges.
+
+**A-Maze-ing** is a Python project that generates, solves, and visualizes mazes while guaranteeing consistency, reproducibility, and clean architecture.
+
+Give it a configuration file, and it will create an entirely new labyrinth ready to be explored.
+
+---
+
+## ✨ What it can do
+
+🧩 Generate random mazes
+
+🌱 Reproduce the exact same maze using a seed
+
+🎯 Find the shortest path from entrance to exit
+
+🔒 Generate perfect mazes (one unique solution)
+
+🖥️ Display the maze visually
+
+📦 Export the maze using hexadecimal wall encoding
+
+4️⃣2️⃣ Draw a visible **42** pattern directly inside the maze
+
+---
+
+## Behind the Walls
+
+Every maze is represented as a grid.
+
+Each cell knows whether its:
+
+* North wall exists
+* East wall exists
+* South wall exists
+* West wall exists
+
+Using only four bits, an entire labyrinth can be described.
+
+Example:
+
+```text
+1111
 ```
+
+A completely closed cell.
+
+```text
+0101
+```
+
+Open in some directions, blocked in others.
+
+Simple representation.
+Complex worlds.
+
+---
+
+## The Architect
+
+### Recursive Backtracker (DFS)
+
+The maze is built using a depth-first search approach.
+
+Starting from a single cell:
+
+1. Choose a random neighbour
+2. Remove the wall between them
+3. Move forward
+4. Repeat
+5. Backtrack when trapped
+
+The result is a maze that feels natural, connected, and fun to solve.
+
+Why this algorithm?
+
+Because it creates:
+
+* Long corridors
+* Interesting dead ends
+* Perfect mazes
+* Fast generation times
+
+---
+
+## The Explorer
+
+### Breadth-First Search (BFS)
+
+Once the maze exists, it must be solved.
+
+BFS explores every reachable path layer by layer until it reaches the exit.
+
+Because of that, the first solution found is always the shortest possible one.
+
+No guessing.
+No luck.
+Just mathematics.
+
+---
+
+## 🗂️ Project Layout
+
+```text
 .
-├── a_maze_ing.py          # Main executable file
-├── mazegen/mazegen.py     # maze generator file
-├── config.txt             # Example configuration file
-├── Makefile
+├── a_maze_ing.py
+├── config.txt
 ├── README.md
-├── .gitignore
-├── read_config_file.py    # Reading config file
-└── pyproject.toml         #Informations about the project
-```
-
-### To build the whl file you can use the following command:
-```
-python3 -m build --no-isolation 
+├── Makefile
+├── pyproject.toml
+│
+├── mazegen/
+│   └── mazegen.py
+│
+└── output_maze.txt
 ```
 
 ---
 
-## Instructions
+## 🚀 Running the Project
 
-### Installation of some used packages
+Install dependencies:
 
 ```bash
 make install
 ```
 
----
-
-### Run
+Run:
 
 ```bash
 make run
-# or
+```
+
+or
+
+```bash
 python3 a_maze_ing.py config.txt
 ```
 
-### Debug
-
-```bash
-make debug
-```
-
-### Lint
-
 ---
 
-```bash
-make lint
-# or
-make lint-strict
-```
+## ⚙️ Configuration
 
-### Clean
+A maze begins with a simple text file.
 
-```bash
-make clean
-```
-
----
-
-## Configuration File
-
-### Format
-
-* One `KEY=VALUE` per line
-* Lines starting with `#` are ignored
-
-### Mandatory Keys Example
-
-```
-WIDTH=14
-HEIGHT=14
-
----
+```text
+WIDTH=20
+HEIGHT=15
 
 ENTRY=0,0
-EXIT=13,13
+EXIT=19,14
+
 OUTPUT_FILE=maze.txt
 PERFECT=True
-```
 
-### Optional Key
-
-```
 SEED=42
 ```
 
-A default configuration file is provided in the repository.
+Change the values.
+
+Generate a new world.
 
 ---
 
-## Maze Generation Algorithm
+## 📤 Export Format
 
-### This project supports multiple maze generation algorithms:
+The generated maze is written using hexadecimal digits.
 
-1. Recursive Backtracker (DFS) (default)
+Each digit stores the state of the four walls:
 
-2. Prim’s Algorithm (alternative)
+| Bit | Direction |
+| --- | --------- |
+| 0   | North     |
+| 1   | East      |
+| 2   | South     |
+| 3   | West      |
 
-### What Is DFS?
+This compact representation allows large mazes to be stored efficiently while preserving every wall.
 
-DFS (Depth-First Search) is a recursive backtracking algorithm that explores one path at a time, marking cells as visited and backtracking when no moves remain.
+After the maze data, the file also contains:
 
-### Why DFS?
-
-* Simple
-* Easy to make **perfect** (single unique path)
-
-For a perfect maze, DFS visits every cell once and guarantees exactly one unique path between any two cells.
-
-### What Is Prim’s Algorithm?
-
-Prim’s algorithm builds the maze step by step starting from one cell.
-It keeps a list of nearby walls, then randomly breaks one to connect a new cell to the maze that’s already made.
-
-### Why Prim’s?
-
-* Makes the maze look more organic and branchy
-
-* Has less long straight paths than DFS
-
-* Still makes a perfect maze (only one path, no loops)
+* Entry coordinates
+* Exit coordinates
+* Shortest valid path
 
 ---
 
-## Maze Solving Algorithm
+## 🖥️ Visual Mode
 
-### Shortest Path Solver: Breadth-First Search (BFS)
+The maze can be explored directly from the terminal.
 
-### What Is BFS?
+Available actions:
 
-BFS (Breadth-First Search) explores the maze cell by cell, checking all reachable cells and move on to them all until finding the exit point then give the shortest path.
+* Generate a new maze
+* Show or hide the solution
+* Change wall colors
+* Highlight the embedded 42 pattern
 
-### Why BFS for Solving?
+Every run creates a different challenge.
 
-* Always finds the shortest path
-
-* Easy to reconstruct the path
-
-* Works perfectly on grid-based mazes
-
----
-
-## Output File Format
-
-Each cell is encoded using **one hexadecimal digit**:
-
-* `1` means wall closed
-* `0` means wall open
-
-Cells are written row by row.
-
-After an empty line:
-
-1. Entry coordinates
-2. Exit coordinates
-3. Shortest valid path using `N E S W`
+Unless, of course, you keep the same seed.
 
 ---
 
-## Visual Representation
-Each cell is encoded using **one hexadecimal digit**:
+## ♻️ Reusable Package
 
-* `1` means wall closed
-* `0` means wall open
+The generation engine was designed to live beyond this project.
 
-Cells are written row by row.
+```python
+from mazegen import MazeGenerator
 
-After an empty line:
+maze = MazeGenerator(
+    width=20,
+    height=15,
+    seed=42
+)
 
-1. Entry coordinates
-2. Exit coordinates
-3. Shortest valid path using `N E S W`
+maze.generate()
+solution = maze.solve()
+```
 
----
+The maze generator can be packaged and reused independently in future projects.
 
-## Visual Representation
+Build:
 
-The maze can be displayed using:
+```bash
+python3 -m build
+```
 
-The maze can be displayed using:
+Install:
 
-* **Terminal ASCII rendering** (default)
-
-Features:
-
-* regenerate maze
-* show / hide shortest path
-* change wall colors
-
----
-
-## AI Usage
-
-AI tools were used for:
-
-* clarifying algorithms behavior
-* reviewing edge cases
-* improving documentation `(Readme.md file)`
+```bash
+pip install dist/*.whl
+```
 
 ---
 
-## Resources
+## What I Learned
 
-* https://youtu.be/sTRK9mQgYuc
-* https://youtu.be/W9F8fDQj7Ok
-* https://youtu.be/V1oZQm1HtVw
-* https://youtu.be/sp0D2ABSaQI
-* https://youtu.be/W9zSr9jnoqY
-* https://youtu.be/ioUl1M77hww
-* https://youtu.be/ZuHW4fS60pc
-* https://youtu.be/V1oZQm1HtVw
+This project is much more than drawing walls.
 
+It combines:
+
+* Graph Theory
+* Pathfinding
+* Randomized Algorithms
+* Data Encoding
+* Software Architecture
+* Python Packaging
+
+Most importantly, it shows how a collection of simple rules can create something that feels unexpectedly alive.
+
+---
+
+> "A maze is not built to trap you.
+> It is built to challenge the way you think."
