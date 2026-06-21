@@ -7,10 +7,15 @@
 <p align="center">
 
 <!-- Put your screenshot here -->
+## 🖼️ Gallery
 
-📸 **Maze Preview**
+### Generated Maze
 
-</p>
+![Generated Maze](images/maze_preview.png)
+
+### Solution Path
+
+![Solution Path](images/maze_solution.png)
 
 ---
 
