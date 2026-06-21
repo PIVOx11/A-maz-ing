@@ -9,13 +9,19 @@
 <!-- Put your screenshot here -->
 ## 🖼️ Gallery
 
-### Generated Maze
+<table align="center">
+<tr>
+<td align="center">
+<img src="images/maze_preview.png" width="350"><br>
+<b>Generated Maze</b>
+</td>
 
-![Generated Maze](images/maze_preview.png)
-
-### Solution Path
-
-![Solution Path](images/maze_solution.png)
+<td align="center">
+<img src="images/maze_solution.png" width="350"><br>
+<b>Shortest Path (BFS)</b>
+</td>
+</tr>
+</table>
 
 ---
 
