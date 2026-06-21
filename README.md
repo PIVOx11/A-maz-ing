@@ -226,39 +226,6 @@ Unless, of course, you keep the same seed.
 
 ---
 
-## ♻️ Reusable Package
-
-The generation engine was designed to live beyond this project.
-
-```python
-from mazegen import MazeGenerator
-
-maze = MazeGenerator(
-    width=20,
-    height=15,
-    seed=42
-)
-
-maze.generate()
-solution = maze.solve()
-```
-
-The maze generator can be packaged and reused independently in future projects.
-
-Build:
-
-```bash
-python3 -m build
-```
-
-Install:
-
-```bash
-pip install dist/*.whl
-```
-
----
-
 ## What I Learned
 
 This project is much more than drawing walls.
