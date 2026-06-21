@@ -137,16 +137,19 @@ Just mathematics.
 ## 🗂️ Project Layout
 
 ```text
-.
 ├── a_maze_ing.py
 ├── config.txt
-├── README.md
+├── images
+│   ├── maze_preview.png
+│   └── maze_solution.png
 ├── Makefile
+├── mazegen
+│   ├── __init__.py
+│   └── mazegen.py
+├── maze.txt
 ├── pyproject.toml
-│
-├── mazegen/
-│   └── mazegen.py
-│
+├── read_config_file.py
+└── README.md
 └── output_maze.txt
 ```
 
@@ -243,7 +246,6 @@ This project is much more than drawing walls.
 
 It combines:
 
-* Graph Theory
 * Pathfinding
 * Randomized Algorithms
 * Data Encoding
